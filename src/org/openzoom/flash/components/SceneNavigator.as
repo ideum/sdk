@@ -58,7 +58,7 @@ use namespace openzoom_internal;
  */
 public final class SceneNavigator extends Sprite
 {
-    include "../core/Version.as"
+	include "../core/Version.as"
 
     //--------------------------------------------------------------------------
     //
@@ -82,9 +82,6 @@ public final class SceneNavigator extends Sprite
     {
         addEventListener(Event.ADDED_TO_STAGE,
                          addedToStageHandler,
-                         false, 0, true)
-        addEventListener(Event.REMOVED_FROM_STAGE,
-                         removedFromStageHandler,
                          false, 0, true)
 
         createBackground()
@@ -212,21 +209,11 @@ public final class SceneNavigator extends Sprite
     private function addedToStageHandler(event:Event):void
     {
         stage.addEventListener(Event.MOUSE_LEAVE,
-            stage_mouseLeaveHandler,
-            false, 0, true)
+                               stage_mouseLeaveHandler,
+                               false, 0, true)
         stage.addEventListener(MouseEvent.MOUSE_UP,
-            stage_mouseUpHandler,
-            false, 0, true)
-    }
-
-    private function removedFromStageHandler(event:Event):void
-    {
-        stage.removeEventListener(Event.MOUSE_LEAVE,
-            stage_mouseLeaveHandler)
-        stage.removeEventListener(MouseEvent.MOUSE_UP,
-            stage_mouseUpHandler)
-        stage.removeEventListener(MouseEvent.MOUSE_MOVE,
-            stage_mouseMoveHandler)
+                               stage_mouseLeaveHandler,
+                               false, 0, true)
     }
 
     private function viewport_transformUpdateHandler(event:ViewportEvent):void
@@ -294,11 +281,6 @@ public final class SceneNavigator extends Sprite
         panning = false
     }
 
-    private function stage_mouseLeaveHandler(event:Event):void
-    {
-        stage_mouseUpHandler(null)
-    }
-
     private function background_clickHandler(event:MouseEvent):void
     {
         var transformX:Number = (background.scaleX * background.mouseX)
@@ -307,6 +289,11 @@ public final class SceneNavigator extends Sprite
                                     / backgroundHeight
 
         viewport.panCenterTo(transformX, transformY)
+    }
+
+    private function stage_mouseLeaveHandler(event:Event):void
+    {
+        stage_mouseUpHandler(null)
     }
 
     //--------------------------------------------------------------------------

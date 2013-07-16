@@ -51,7 +51,7 @@ use namespace openzoom_internal;
  */
 public final class Cache implements ICache
 {
-    include "../core/Version.as"
+	include "../core/Version.as"
 
     //--------------------------------------------------------------------------
     //
@@ -187,8 +187,15 @@ public final class Cache implements ICache
      */
     public function dispose():void
     {
-        items = []
+        for (var s:String in cache) {
+			if ("dispose" in cache[s]) {
+				cache[s].dispose();
+			}
+			delete cache[s];
+		}
+		
         cache = null
+		items = []
     }
 }
 

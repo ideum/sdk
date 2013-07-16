@@ -59,7 +59,7 @@ use namespace openzoom_internal;
  */
 internal final class TileLoader extends EventDispatcher
 {
-    include "../../core/Version.as"
+	include "../../core/Version.as"
 
     //--------------------------------------------------------------------------
     //
@@ -119,6 +119,7 @@ internal final class TileLoader extends EventDispatcher
 
         var request:INetworkRequest = loader.addRequest(tile.url, Bitmap, tile)
 
+		// TO-DO: remove these listeners at some point.
         request.addEventListener(NetworkRequestEvent.COMPLETE,
                                  request_completeHandler,
                                  false, 0, true)
@@ -138,6 +139,9 @@ internal final class TileLoader extends EventDispatcher
     {
         numDownloads--
 
+		event.target.removeEventListener(NetworkRequestEvent.COMPLETE, request_completeHandler);
+		event.target.removeEventListener(NetworkRequestEvent.ERROR, request_errorHandler);
+		
         var tile:ImagePyramidTile = event.context as ImagePyramidTile
         var bitmapData:BitmapData = Bitmap(event.data).bitmapData
 

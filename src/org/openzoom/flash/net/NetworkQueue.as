@@ -58,7 +58,7 @@ use namespace openzoom_internal;
 public final class NetworkQueue extends EventDispatcher
                                 implements INetworkQueue
 {
-    include "../core/Version.as"
+	include "../core/Version.as"
 
     //--------------------------------------------------------------------------
     //
@@ -119,7 +119,7 @@ public final class NetworkQueue extends EventDispatcher
 
         if (!request)
             throw new ArgumentError("Type " + type.toString() + " not supported.")
-
+            
         addEventListeners(request)
 
         // Add item to front (LIFO)
@@ -146,6 +146,7 @@ public final class NetworkQueue extends EventDispatcher
         {
             var item:INetworkRequest = INetworkRequest(queue.shift())
             connections.push(item)
+			MemoryTracker.track(item, "Display object request in NetworkQueue.");
             item.start()
         }
     }
@@ -161,12 +162,15 @@ public final class NetworkQueue extends EventDispatcher
      */
     private function request_completeHandler(event:NetworkRequestEvent):void
     {
-        var index:int = connections.indexOf(event.request)
+		var index:int = connections.indexOf(event.request)
 
         if (index >= 0)
            connections.splice(index, 1)
 
         removeEventListeners(event.request)
+		
+		// Testing this out...
+		event.request.dispose();
 
         processQueue()
 
@@ -203,7 +207,7 @@ public final class NetworkQueue extends EventDispatcher
         progressEvent.bytesTotal = bytesTotal
         dispatchEvent(progressEvent)
     }
-
+    
     private function addEventListeners(request:INetworkRequest):void
     {
         request.addEventListener(ProgressEvent.PROGRESS,
@@ -213,7 +217,7 @@ public final class NetworkQueue extends EventDispatcher
         request.addEventListener(NetworkRequestEvent.ERROR,
                                  request_errorHandler)
     }
-
+    
     private function removeEventListeners(request:INetworkRequest):void
     {
         request.removeEventListener(ProgressEvent.PROGRESS,
@@ -229,27 +233,27 @@ public final class NetworkQueue extends EventDispatcher
     //  Methods: IDisposable
     //
     //--------------------------------------------------------------------------
-
+    
     public function dispose():void
     {
-        var request:INetworkRequest
+    	var request:INetworkRequest
         for each (request in queue)
         {
-            removeEventListeners(request)
+        	removeEventListeners(request)
             request.dispose()
         }
-
+        
         queue = []
-
+        
         for each (request in connections)
         {
-            removeEventListeners(request)
+        	removeEventListeners(request)
             request.dispose()
         }
-
+        
         connections = []
-
-    }
+            
+    }    
 }
 
 }

@@ -1,4 +1,4 @@
-////////////////////////////////////////////////////////////////////////////////
+﻿////////////////////////////////////////////////////////////////////////////////
 //
 //  OpenZoom SDK
 //
@@ -46,6 +46,8 @@ import flash.display.Sprite;
 import flash.events.Event;
 import flash.geom.Point;
 import flash.geom.Rectangle;
+// TO-DO: Delete system import.
+import flash.system.System;
 
 import org.openzoom.flash.core.openzoom_internal;
 import org.openzoom.flash.events.ViewportEvent;
@@ -65,16 +67,19 @@ import org.openzoom.flash.viewport.IViewportController;
 import org.openzoom.flash.viewport.IViewportTransformer;
 import org.openzoom.flash.viewport.NormalizedViewport;
 
+//import id.core.TouchSprite;	
+import com.gestureworks.core.TouchSprite;
+
 use namespace openzoom_internal;
 
 /**
  * Flash component for creating Zoomable User Interfaces.
  */
-public final class MultiScaleContainer extends Sprite
+public final class MultiScaleContainer extends TouchSprite
                                        implements ILoaderClient,
                                                   IDisposable
 {
-    include "../core/Version.as"
+	include "../core/Version.as"
 
     //--------------------------------------------------------------------------
     //
@@ -101,6 +106,7 @@ public final class MultiScaleContainer extends Sprite
      */
     public function MultiScaleContainer()
     {
+		MemoryTracker.track(this, "MultiScaleContainer.");
         createChildren()
     }
 
@@ -289,23 +295,50 @@ public final class MultiScaleContainer extends Sprite
 
     private function createChildren():void
     {
+		//var memoryConsumption:Number = System.totalMemory / 1024;
+		//var memoryConsumption:Number = System.totalMemory / 1024;
+		//trace("Starting container, system memory:", memoryConsumption, "kb");
         if (!scene)
             createScene()
-
+			
+		MemoryTracker.track(scene, "Scene created in Container.");
+		//memoryConsumption = System.totalMemory / 1024;
+		//trace("Scene created, system memory:", memoryConsumption, "kb");
+		
         if (!viewport)
             createViewport(_scene)
-
-        if (!mouseCatcher)
+			
+		MemoryTracker.track(viewport, "viewport created in Container.");
+		//memoryConsumption = flash.system.System.totalMemory / 1024;
+		//trace("Viewport created, system memory:", memoryConsumption, "kb");
+        //
+		if (!mouseCatcher)
             createMouseCatcher()
+			
+		MemoryTracker.track(mouseCatcher, "mouseCatcher created in Container.");
+		//memoryConsumption = flash.system.System.totalMemory / 1024;
+		//trace("MouseCatcher created, system memory:", memoryConsumption, "kb");
 
         if (!contentMask)
             createContentMask()
+			
+		MemoryTracker.track(contentMask, "contentMask created in Container.");
+		//memoryConsumption = flash.system.System.totalMemory / 1024;
+		//trace("Content Mask created, system memory:", memoryConsumption, "kb");
 
         if (!loader)
             createLoader()
 
+		MemoryTracker.track(loader, "loader created in Container.");
+		//memoryConsumption = flash.system.System.totalMemory / 1024;
+		//trace("Loader created, system memory:", memoryConsumption, "kb");
+		
         if (!renderManager)
             createRenderManager()
+			
+		MemoryTracker.track(renderManager, "renderManager created in Container.");
+		//memoryConsumption = flash.system.System.totalMemory / 1024;
+		//trace("RenderManager created, system memory:", memoryConsumption, "kb");
     }
 
     //--------------------------------------------------------------------------
@@ -810,36 +843,48 @@ public final class MultiScaleContainer extends Sprite
     //  Methods: IDisposable
     //
     //--------------------------------------------------------------------------
-
+    
     public function dispose():void
     {
         removeEventListener(Event.ENTER_FRAME,
                             enterFrameHandler)
 
-        _transformer = null
-        controllers = []
-        _constraint = null
-
-        while (super.numChildren > 0)
-           super.removeChildAt(0)
+		
+    	_transformer = null
+    	controllers = []
+    	_constraint = null
+    	
+    	while (super.numChildren > 0)
+    	   super.removeChildAt(0)
 
         mouseCatcher = null
+		this.mask = null;
         contentMask = null
-
+		
+		
+		                    
         _viewport.removeEventListener(ViewportEvent.TRANSFORM_START,
                                       viewport_transformStartHandler)
         _viewport.removeEventListener(ViewportEvent.TRANSFORM_UPDATE,
                                       viewport_transformUpdateHandler)
         _viewport.removeEventListener(ViewportEvent.TRANSFORM_END,
                                       viewport_transformEndHandler)
-        _viewport.dispose()
-        _viewport = null
-
-        _scene.dispose()
-        _scene = null
-
-        _loader.dispose()
-        _loader = null
+    	_viewport.dispose()
+    	_viewport = null
+    	trace("Disposed viewport, system memory:", System.totalMemory / 1024, "kb");
+		
+    	_scene.dispose()
+    	_scene = null
+    	
+    	_loader.dispose()
+    	_loader = null
+		trace("Disposed loader, system memory:", System.totalMemory / 1024, "kb");
+		// New stuff:
+		if (renderManager)
+			renderManager.dispose();
+		renderManager = null;
+		
+		//trace("Disposed container, system memory:", System.totalMemory / 1024, "kb");
     }
 }
 

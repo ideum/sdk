@@ -82,7 +82,7 @@ public interface IImageSourceDescriptor
     //----------------------------------
 
     /**
-     * MIME-type of the image source.
+     * Mime-type of the image source.
      */
     function get type():String
 

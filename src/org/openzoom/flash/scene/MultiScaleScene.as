@@ -44,6 +44,7 @@ import flash.display.Graphics;
 import flash.display.Shape;
 import flash.display.Sprite;
 import flash.events.Event;
+import flash.system.System;
 
 import org.openzoom.flash.core.openzoom_internal;
 
@@ -62,10 +63,10 @@ use namespace openzoom_internal;
  * Basic implementation of IMultiScaleScene
  */
 public class MultiScaleScene extends Sprite
-                             implements IMultiScaleScene,
+						     implements IMultiScaleScene,
                                         IReadonlyMultiScaleScene
 {
-    include "../core/Version.as"
+	include "../core/Version.as"
 
     //--------------------------------------------------------------------------
     //
@@ -269,13 +270,13 @@ public class MultiScaleScene extends Sprite
     //  Methods: IDisposable
     //
     //--------------------------------------------------------------------------
-
+    
     public function dispose():void
     {
         while (super.numChildren > 0)
-            super.removeChildAt(0)
-
-        frame = null
+        	super.removeChildAt(0)
+		
+        frame = null;
     }
 }
 

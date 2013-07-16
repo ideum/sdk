@@ -60,27 +60,27 @@ use namespace openzoom_internal;
 /**
  * @inheritDoc
  */
-[Event(name="resize", type="org.openzoom.flash.events.ViewportEvent")]
+[Event(name="resize", type="org.openzoom.events.ViewportEvent")]
 
 /**
  * @inheritDoc
  */
-[Event(name="transformStart", type="org.openzoom.flash.events.ViewportEvent")]
+[Event(name="transformStart", type="org.openzoom.events.ViewportEvent")]
 
 /**
  * @inheritDoc
  */
-[Event(name="transformUpdate", type="org.openzoom.flash.events.ViewportEvent")]
+[Event(name="transformUpdate", type="org.openzoom.events.ViewportEvent")]
 
 /**
  * @inheritDoc
  */
-[Event(name="transformEnd", type="org.openzoom.flash.events.ViewportEvent")]
+[Event(name="transformEnd", type="org.openzoom.events.ViewportEvent")]
 
 /**
  * @inheritDoc
  */
-[Event(name="targetUpdate", type="org.openzoom.flash.events.ViewportEvent")]
+[Event(name="targetUpdate", type="org.openzoom.events.ViewportEvent")]
 
 
 /**
@@ -90,7 +90,7 @@ public final class NormalizedViewport extends EventDispatcher
                                       implements INormalizedViewport,
                                                  INormalizedViewportContainer
 {
-    include "../core/Version.as"
+	include "../core/Version.as"
 
     //--------------------------------------------------------------------------
     //
@@ -98,7 +98,7 @@ public final class NormalizedViewport extends EventDispatcher
     //
     //--------------------------------------------------------------------------
 
-    private const NULL_TRANSFORMER:IViewportTransformer = new NullTransformer()
+    private static const NULL_TRANSFORMER:IViewportTransformer = new NullTransformer()
 
     //--------------------------------------------------------------------------
     //
@@ -114,7 +114,9 @@ public final class NormalizedViewport extends EventDispatcher
                                        scene:IReadonlyMultiScaleScene)
     {
         _scene = scene
-        _scene.addEventListener(Event.RESIZE,
+		MemoryTracker.track(this, "Normalized viewport from constructor.");
+        MemoryTracker.track(_scene, "_Scene in Normalized Viewport.");
+		_scene.addEventListener(Event.RESIZE,
                                 scene_resizeHandler,
                                 false, 0, true)
 
@@ -784,7 +786,7 @@ public final class NormalizedViewport extends EventDispatcher
     /**
      * @inheritDoc
      */
-    override public function toString():String
+   /* override public function toString():String
     {
         return "[NormalizedViewport]" + "\n" +
                "x=" + x + "\n" +
@@ -794,23 +796,26 @@ public final class NormalizedViewport extends EventDispatcher
                "h=" + height + "\n" +
                "sW=" + scene.sceneWidth + "\n" +
                "sH=" + scene.sceneHeight
-    }
+    }*/
 
     //--------------------------------------------------------------------------
     //
     //  Methods: IDisposable
     //
     //--------------------------------------------------------------------------
-
+    
     public function dispose():void
     {
-        _scene.removeEventListener(Event.RESIZE,
-                                   scene_resizeHandler)
-
-        _transform.dispose()
-        _transform = null
-
-        _transformer = null
+		if (_scene && _scene.hasEventListener(Event.RESIZE))
+			_scene.removeEventListener(Event.RESIZE, scene_resizeHandler)
+    	this._scene = null;
+		
+		if (_transform)
+			_transform.dispose()
+    	_transform = null
+		if (_transformer)
+			_transformer.dispose();
+    	_transformer = null    	
     }
 }
 

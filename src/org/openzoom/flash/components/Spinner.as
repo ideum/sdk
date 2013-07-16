@@ -16,13 +16,13 @@ use namespace openzoom_internal;
  * Component for indicating activity, such as loading over the network.<br/>
  *
  * License: Unknown<br/>
- *
+ * 
  * Adapted from code by Steven Sacks
  * @see http://www.stevensacks.net/2008/10/01/as3-apple-style-preloader/
  */
 public final class Spinner extends Sprite
 {
-    include "../core/Version.as"
+	include "../core/Version.as"
 
     //--------------------------------------------------------------------------
     //

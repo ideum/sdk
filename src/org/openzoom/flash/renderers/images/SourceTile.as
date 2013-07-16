@@ -54,7 +54,7 @@ use namespace openzoom_internal;
  */
 internal final class SourceTile implements ICacheItem
 {
-    include "../../core/Version.as"
+	include "../../core/Version.as"
 
     //--------------------------------------------------------------------------
     //
@@ -126,6 +126,8 @@ internal final class SourceTile implements ICacheItem
             tile.dispose()
 
         url = null
+		// Added new bitmapData dispose.
+		bitmapData.dispose();
         bitmapData = null
         level = 0
         shared = false

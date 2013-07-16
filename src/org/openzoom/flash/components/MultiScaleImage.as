@@ -44,11 +44,13 @@ import flash.events.IOErrorEvent;
 import flash.events.SecurityErrorEvent;
 import flash.net.URLLoader;
 import flash.net.URLRequest;
+import flash.system.System;
 
 import org.openzoom.flash.core.openzoom_internal;
 import org.openzoom.flash.descriptors.IImagePyramidDescriptor;
 import org.openzoom.flash.descriptors.ImagePyramidDescriptorFactory;
 import org.openzoom.flash.renderers.images.ImagePyramidRenderer;
+import org.openzoom.flash.utils.uri.resolveURI;
 
 use namespace openzoom_internal;
 
@@ -84,7 +86,7 @@ use namespace openzoom_internal;
  */
 public final class MultiScaleImage extends MultiScaleImageBase
 {
-    include "../core/Version.as"
+	include "../core/Version.as"
 
     //--------------------------------------------------------------------------
     //
@@ -97,7 +99,9 @@ public final class MultiScaleImage extends MultiScaleImageBase
      */
     public function MultiScaleImage()
     {
-        super()
+		//trace("Starting multiscaleimg, system memory:", System.totalMemory / 1024, "kb");
+        MemoryTracker.track(this, "MultiScaleImg");
+		super()
 
         tabEnabled = false
         tabChildren = true
@@ -146,9 +150,8 @@ public final class MultiScaleImage extends MultiScaleImageBase
 
             url = String(value)
 
-            // TODO What was this trying to solve?
-//          if (loaderInfo)
-//              url = resolveURI(loaderInfo.url, String(value))
+            if (loaderInfo)
+                url = resolveURI(loaderInfo.url, String(value))
 
             urlLoader = new URLLoader(new URLRequest(url))
 
@@ -162,13 +165,15 @@ public final class MultiScaleImage extends MultiScaleImageBase
                                        urlLoader_securityErrorHandler,
                                        false, 0, true )
         }
-
+        
         if (_source)
         {
             _source = null
 
-            if (container.numChildren > 0)
-                container.removeChildAt(0)
+			// Should this be a while loop?
+            if (container.numChildren > 0) {
+				container.removeChildAt(0)
+			}
         }
 
         if (value is IImagePyramidDescriptor)
@@ -208,6 +213,7 @@ public final class MultiScaleImage extends MultiScaleImageBase
         container.sceneWidth = sceneWidth
         container.sceneHeight = sceneHeight
 
+		MemoryTracker.track(descriptor, "Descriptor from MultiScaleImage");
         // create renderer
         image = createImage(descriptor,
                             sceneWidth,
@@ -227,6 +233,7 @@ public final class MultiScaleImage extends MultiScaleImageBase
     {
         var image:ImagePyramidRenderer = new ImagePyramidRenderer()
         image.source = descriptor
+		MemoryTracker.track(image.source, "Descriptor in ImagePyramidRenderer placed there as part of createImage in MultiScaleImage.");
         image.width = width
         image.height = height
         return image
@@ -243,6 +250,10 @@ public final class MultiScaleImage extends MultiScaleImageBase
      */
     private function urlLoader_completeHandler(event:Event):void
     {
+		urlLoader.removeEventListener(Event.COMPLETE, urlLoader_completeHandler)
+		urlLoader.removeEventListener(IOErrorEvent.IO_ERROR, urlLoader_ioErrorHandler)
+		urlLoader.removeEventListener(SecurityErrorEvent.SECURITY_ERROR, urlLoader_securityErrorHandler)
+		
         if (!urlLoader || !urlLoader.data)
             return
 
@@ -275,24 +286,29 @@ public final class MultiScaleImage extends MultiScaleImageBase
     //  Methods: IDisposable
     //
     //--------------------------------------------------------------------------
-
+    
     override public function dispose():void
     {
-        image.dispose()
-        image = null
-
-        try
-        {
-            urlLoader.close()
-        }
-        catch(error:Error)
-        {
-            // Do nothing
-        }
-
-        urlLoader = null
-
-        super.dispose()
+		trace("Starting dispose:", System.totalMemory / 1024, "kb");
+    	image.dispose()
+    	image = null
+    	
+    	try
+    	{
+	    	urlLoader.close()
+    	}
+    	catch(error:Error)
+    	{
+    		// Do nothing
+    	}
+    	
+		if (_source && _source is IImagePyramidDescriptor) {
+			_source = null;
+		}
+    	urlLoader = null
+    	
+    	super.dispose()
+		trace("Multiscale image dispose, system memory:", System.totalMemory / 1024, "kb");
     }
 }
 

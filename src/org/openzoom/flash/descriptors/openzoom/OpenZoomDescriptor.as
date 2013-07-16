@@ -57,7 +57,7 @@ use namespace openzoom_internal;
 public final class OpenZoomDescriptor extends ImagePyramidDescriptorBase
                                       implements IImagePyramidDescriptor
 {
-    include "../../core/Version.as"
+	include "../../core/Version.as"
 
     //--------------------------------------------------------------------------
     //
@@ -76,12 +76,13 @@ public final class OpenZoomDescriptor extends ImagePyramidDescriptorBase
     /**
      * Constructor.
      */
-    public function OpenZoomDescriptor(source:String, data:XML)
+    public function OpenZoomDescriptor(uri:String, data:XML)
     {
         use namespace openzoom
 
-        this.source = source
         this.data = data
+
+        this.source = uri
         parseXML(data)
     }
 
