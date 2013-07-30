@@ -120,6 +120,7 @@ public final class ImagePyramidRenderManager implements IDisposable
                                     tileCache,
                                     MAX_DOWNLOADS_STATIC)
 		MemoryTracker.track(tileLoader, "TileLoader in ImagePyramidRenderManager.");
+		MemoryTracker.track(this.viewport, "Viewport in ImagePyramidRenderManager.");
 
         this.viewport.addEventListener(ViewportEvent.TRANSFORM_UPDATE,
                                        viewport_transformUpdateHandler,
@@ -556,10 +557,12 @@ public final class ImagePyramidRenderManager implements IDisposable
 		viewport.removeEventListener(ViewportEvent.TRANSFORM_UPDATE, viewport_transformUpdateHandler);
 		viewport.removeEventListener(ViewportEvent.TRANSFORM_START, viewport_transformUpdateHandler);
 		
-		/*for (var i:int = 0; i < renderers.length; i++) {
-			if ("viewport" in renderers[i])
-				renderers[i]["viewport"] = null;
-		}*/
+		for (var i:int = 0; i < renderers.length; i++) {
+			//if ("viewport" in renderers[i])
+				//renderers[i]["viewport"] = null;
+			if ("dispose" in renderers[i])
+				renderers[i].dispose();
+		}
 		renderers = [];
 		
 		

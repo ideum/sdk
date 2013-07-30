@@ -126,11 +126,13 @@ public class ViewportControllerBase
             view_removedFromStageHandler(null)
 
         _view = value
+		trace("SETTING THE GODDAMN VIEW IN VIEWPORTCONTROLLER BASE:", _view);
 
         if (value)
         {
             view.addEventListener(Event.ADDED_TO_STAGE,view_addedToStageHandler,false, 0, true)
-            view.addEventListener(Event.REMOVED_FROM_STAGE, view_removedFromStageHandler,false, 0, true)
+            view.addEventListener(Event.REMOVED_FROM_STAGE, view_removedFromStageHandler, false, 0, true)
+			MemoryTracker.track(view, "Tracking 'view' in ViewportControllerBase.");
 
             if (view.stage)
                 view_addedToStageHandler(null)
@@ -159,7 +161,25 @@ public class ViewportControllerBase
      */
     protected function view_removedFromStageHandler(event:Event):void
     {
+		if (view) {
+			view.removeEventListener(Event.ADDED_TO_STAGE, view_addedToStageHandler)
+			view.removeEventListener(Event.REMOVED_FROM_STAGE, view_removedFromStageHandler)
+		}
+		_view = null;
+		
+		if (viewport)
+			viewport = null;
     }
+	
+	public function dispose():void {
+		trace("Controller dispose. Did I do this right?");
+		view = null;
+		if (_view) {
+			trace("class level _view still exists, nullifying it");
+			_view = null;
+		}
+		viewport = null;
+	}
 }
 
 }

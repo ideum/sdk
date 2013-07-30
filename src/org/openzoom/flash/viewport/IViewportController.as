@@ -64,7 +64,7 @@ public interface IViewportController
      * Indicates the display object the controller receives events from.
      */
     function get view():TouchSprite//DisplayObject
-    function set view(value:TouchSprite):void //DisplayObject
+    function set view(value:TouchSprite):void //DisplayObject 
 
     //----------------------------------
     //  viewport
@@ -75,6 +75,7 @@ public interface IViewportController
      */
     function get viewport():INormalizedViewport
     function set viewport(value:INormalizedViewport):void
+	
 }
 
 }

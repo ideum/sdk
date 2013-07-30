@@ -234,6 +234,7 @@ public final class MultiScaleImage extends MultiScaleImageBase
         var image:ImagePyramidRenderer = new ImagePyramidRenderer()
         image.source = descriptor
 		MemoryTracker.track(image.source, "Descriptor in ImagePyramidRenderer placed there as part of createImage in MultiScaleImage.");
+		MemoryTracker.track(image, "image variable in MultiScaleImage");
         image.width = width
         image.height = height
         return image

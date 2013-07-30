@@ -158,6 +158,8 @@ public final class KeyboardController extends ViewportControllerBase
 
         view.stage.removeEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler)
         view.stage.removeEventListener(KeyboardEvent.KEY_UP, keyUpHandler)
+		
+		super.view_removedFromStageHandler(event);
     }
 
     //--------------------------------------------------------------------------

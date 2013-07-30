@@ -39,6 +39,7 @@
 package org.openzoom.flash.components
 {
 
+import com.gestureworks.managers.ObjectManager;
 import flash.display.DisplayObject;
 import flash.display.Sprite;
 import flash.geom.Point;
@@ -561,6 +562,7 @@ internal class MultiScaleImageBase extends TouchSprite
     public function dispose():void
     {
 		super.removeChild(container);
+		ObjectManager.unRegisterTouchObject(container);
     	container.dispose()
     	container = null
     	

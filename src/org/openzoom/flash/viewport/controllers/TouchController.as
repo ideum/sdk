@@ -1,24 +1,15 @@
 ﻿package org.openzoom.flash.viewport.controllers
 {
+	import com.gestureworks.events.GWGestureEvent;
 	import flash.events.Event;
-	import flash.events.MouseEvent;
 	import flash.events.TouchEvent;
-	import flash.events.TimerEvent;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
-	import flash.utils.Timer;
+	import org.openzoom.flash.viewport.IViewportController;
 	//import org.libspark.betweenas3.core.tweens.actions.RemoveFromParentAction;
 
-	import org.openzoom.flash.core.openzoom_internal;
-	import org.openzoom.flash.utils.math.clamp;
-	import org.openzoom.flash.viewport.IViewportController;
 
-	import com.gestureworks.events.GWGestureEvent;
-	import com.gestureworks.events.GWClusterEvent;
-	import com.gestureworks.events.GWTouchEvent;
-	import com.gestureworks.core.GestureWorks;
 
-	import org.tuio.TuioTouchEvent;
 	
 	use namespace openzoom_internal;
 
@@ -105,7 +96,7 @@ public final class TouchController extends ViewportControllerBase
 		//view.gestureList = { "1-finger-drag":true, "2-finger-scale":true, "double_tap":true };
 		view.gestureList = { "n-drag":true, "n-scale":true, "double_tap":true };
 		
-		view.addEventListener(GWClusterEvent.C_POINT_REMOVE, view_pointRemoveHandler); // touch end is unreliable
+		view.addEventListener(GWGestureEvent.COMPLETE, view_pointRemoveHandler); // touch end is unreliable
 		view.addEventListener(GWGestureEvent.DOUBLE_TAP, view_dTapHandler);	
 		view.addEventListener(GWGestureEvent.DRAG, view_dragHandler);
 		view.addEventListener(GWGestureEvent.SCALE, view_scaleHandler);
@@ -117,12 +108,14 @@ public final class TouchController extends ViewportControllerBase
 	      // panning listeners
 			
 			view.removeEventListener(GWGestureEvent.DOUBLE_TAP, view_dTapHandler);
-			view.removeEventListener(GWClusterEvent.C_POINT_REMOVE, view_pointRemoveHandler);
+			view.removeEventListener(GWGestureEvent.COMPLETE, view_pointRemoveHandler);
 			
 	      // zooming listeners
 			view.removeEventListener(GWGestureEvent.DRAG, view_dragHandler);
 			view.removeEventListener(GWGestureEvent.SCALE, view_scaleHandler);
     	}
+		
+		super.view_removedFromStageHandler(event);
     }
     //--------------------------------------------------------------------------
    
@@ -182,7 +175,7 @@ public final class TouchController extends ViewportControllerBase
 		panning = false
     }
 	
-	private function view_pointRemoveHandler(event:GWClusterEvent):void
+	private function view_pointRemoveHandler(event:GWGestureEvent):void
     {
 		 panning = false
     }

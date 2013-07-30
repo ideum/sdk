@@ -46,6 +46,7 @@ import flash.display.Sprite;
 import flash.events.Event;
 import flash.geom.Point;
 import flash.geom.Rectangle;
+import org.openzoom.flash.viewport.controllers.ViewportControllerBase;
 // TO-DO: Delete system import.
 import flash.system.System;
 
@@ -295,36 +296,26 @@ public final class MultiScaleContainer extends TouchSprite
 
     private function createChildren():void
     {
-		//var memoryConsumption:Number = System.totalMemory / 1024;
-		//var memoryConsumption:Number = System.totalMemory / 1024;
-		//trace("Starting container, system memory:", memoryConsumption, "kb");
+		
         if (!scene)
             createScene()
 			
 		MemoryTracker.track(scene, "Scene created in Container.");
-		//memoryConsumption = System.totalMemory / 1024;
-		//trace("Scene created, system memory:", memoryConsumption, "kb");
 		
         if (!viewport)
             createViewport(_scene)
 			
 		MemoryTracker.track(viewport, "viewport created in Container.");
-		//memoryConsumption = flash.system.System.totalMemory / 1024;
-		//trace("Viewport created, system memory:", memoryConsumption, "kb");
-        //
+		
 		if (!mouseCatcher)
             createMouseCatcher()
 			
 		MemoryTracker.track(mouseCatcher, "mouseCatcher created in Container.");
-		//memoryConsumption = flash.system.System.totalMemory / 1024;
-		//trace("MouseCatcher created, system memory:", memoryConsumption, "kb");
 
         if (!contentMask)
             createContentMask()
 			
 		MemoryTracker.track(contentMask, "contentMask created in Container.");
-		//memoryConsumption = flash.system.System.totalMemory / 1024;
-		//trace("Content Mask created, system memory:", memoryConsumption, "kb");
 
         if (!loader)
             createLoader()
@@ -376,7 +367,7 @@ public final class MultiScaleContainer extends TouchSprite
         {
             renderer.viewport = _viewport
             renderer.scene = IReadonlyMultiScaleScene(_scene)
-
+			MemoryTracker.track(renderer, "Some renderer being added in.");
             var imagePyramidRenderer:ImagePyramidRenderer = renderer as ImagePyramidRenderer
             if (imagePyramidRenderer)
                 renderManager.addRenderer(imagePyramidRenderer)
@@ -489,6 +480,7 @@ public final class MultiScaleContainer extends TouchSprite
         _viewport.addEventListener(ViewportEvent.TRANSFORM_END,
                                    viewport_transformEndHandler,
                                    false, 0, true)
+		MemoryTracker.track(_viewport, "Tracking viewport in CreateViewport");
 
         addEventListener(Event.ENTER_FRAME,
                          enterFrameHandler,
@@ -574,6 +566,8 @@ public final class MultiScaleContainer extends TouchSprite
 
         _controllers.push(controller)
         controller.viewport = viewport
+		MemoryTracker.track(controller, "Controller added in addController() in MultiScaleContainer.");
+		MemoryTracker.track(controller.viewport, "Viewport in controller, added in addController() in MultiScaleContainer.");
         controller.view = this
         return true
     }
@@ -851,7 +845,22 @@ public final class MultiScaleContainer extends TouchSprite
 
 		
     	_transformer = null
-    	controllers = []
+		for (var i:int = 0; i < controllers.length; i++) 
+		{
+			var controller:ViewportControllerBase = controllers[i];
+			controller.dispose();
+			if (controller.view) {
+				trace("Nullifying controller view.");
+				controller.view = null;
+			}
+			
+			//controller.viewport.dispose();
+			if (controller.viewport) {
+				trace("Nullifying controller viewport.");
+				controller.viewport = null;
+			}
+		}
+    	controllers = [];
     	_constraint = null
     	
     	while (super.numChildren > 0)
@@ -859,9 +868,9 @@ public final class MultiScaleContainer extends TouchSprite
 
         mouseCatcher = null
 		this.mask = null;
-        contentMask = null
+        contentMask = null;
 		
-		
+		//MemoryTracker.track(_viewport, "_viewport in MultiscaleContainer.");
 		                    
         _viewport.removeEventListener(ViewportEvent.TRANSFORM_START,
                                       viewport_transformStartHandler)
@@ -870,21 +879,21 @@ public final class MultiScaleContainer extends TouchSprite
         _viewport.removeEventListener(ViewportEvent.TRANSFORM_END,
                                       viewport_transformEndHandler)
     	_viewport.dispose()
-    	_viewport = null
-    	trace("Disposed viewport, system memory:", System.totalMemory / 1024, "kb");
+    	_viewport = null;
+		trace("VIIIIIEEEEWWWPOOOORT:", _viewport, viewport);
 		
     	_scene.dispose()
     	_scene = null
     	
     	_loader.dispose()
     	_loader = null
-		trace("Disposed loader, system memory:", System.totalMemory / 1024, "kb");
-		// New stuff:
-		if (renderManager)
-			renderManager.dispose();
-		renderManager = null;
 		
-		//trace("Disposed container, system memory:", System.totalMemory / 1024, "kb");
+		// New stuff:
+		MemoryTracker.track(renderManager, "RenderManager in MultiScaleContainer.");
+		if (renderManager) {
+			renderManager.dispose();
+		}
+		renderManager = null;
     }
 }
 

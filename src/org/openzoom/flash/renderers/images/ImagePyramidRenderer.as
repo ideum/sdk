@@ -220,7 +220,7 @@ public final class ImagePyramidRenderer extends Renderer
 
     public function dispose():void
     {
-		MemoryTracker.track(viewport, "Viewport in just the renderer.");
+		//MemoryTracker.track(viewport, "Viewport in just the ImagePyramidRenderer.");
 		for (var s:String in tileCache) {
 			if ("dispose" in tileCache[s]) {
 				tileCache[s]["dispose"]();
@@ -229,12 +229,17 @@ public final class ImagePyramidRenderer extends Renderer
 		}
 		source = null;
 		
-		if ("dispose" in viewport)
+		if (viewport && "dispose" in viewport)
 			viewport["dispose"]();
 		viewport = null;
 		
         tileCache = null
-        removeChild(openzoom_internal::tileLayer)
+		
+		while (this.numChildren > 0) {
+			removeChildAt(0);
+		}
+		
+		//removeChild(openzoom_internal::tileLayer)
         openzoom_internal::tileLayer = null
     }
 }

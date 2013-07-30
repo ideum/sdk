@@ -257,6 +257,15 @@ public final class MouseController extends ViewportControllerBase
 	        view.removeEventListener(MouseEvent.MOUSE_WHEEL,
 	                                 view_mouseWheelHandler)
     	}
+		
+		if (clickTimer) {
+			clickTimer.stop();
+			clickTimer.removeEventListener(TimerEvent.TIMER, clickTimer_completeHandler);
+			clickTimer = null;
+		}
+		
+		super.view_removedFromStageHandler(event);
+		
     }
 
     //--------------------------------------------------------------------------

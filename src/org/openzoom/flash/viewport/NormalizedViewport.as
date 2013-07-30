@@ -136,6 +136,7 @@ public final class NormalizedViewport extends EventDispatcher
                                                   scene.sceneWidth,
                                                   scene.sceneHeight)
         transformer = NULL_TRANSFORMER
+		MemoryTracker.track(_transform, "_transform in Normalized viewport.");
     }
 
     //--------------------------------------------------------------------------
