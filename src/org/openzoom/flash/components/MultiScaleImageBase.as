@@ -53,6 +53,10 @@ import org.openzoom.flash.viewport.INormalizedViewport;
 import org.openzoom.flash.viewport.IViewportConstraint;
 import org.openzoom.flash.viewport.IViewportTransformer;
 
+//import id.core.TouchSprite;
+//import com.gestureworks.cml.element.TouchContainer
+import com.gestureworks.core.TouchSprite;
+
 use namespace openzoom_internal;
 
 /**
@@ -60,12 +64,12 @@ use namespace openzoom_internal;
  *
  * Base class for MultiScaleImage and DeepZoomContainer.
  */
-internal class MultiScaleImageBase extends Sprite
+internal class MultiScaleImageBase extends TouchSprite
                                    implements IMultiScaleContainer,
                                               ILoaderClient,
                                               IDisposable
 {
-    include "../core/Version.as"
+	include "../core/Version.as"
 
     //--------------------------------------------------------------------------
     //
@@ -300,17 +304,17 @@ internal class MultiScaleImageBase extends Sprite
     //----------------------------------
     //  contextMenu
     //----------------------------------
-//
-//    override public function get contextMenu():NativeMenu
-//    {
-//        return container.contextMenu
-//    }
-//
-//    override public function set contextMenu(value:NativeMenu):void
-//    {
-//        container.contextMenu = value
-//    }
+	/*
+    override public function get contextMenu():ContextMenu
+    {
+        return container.contextMenu
+    }
 
+    override public function set contextMenu(value:ContextMenu):void
+    {
+        container.contextMenu = value
+    }
+	*/
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -358,12 +362,12 @@ internal class MultiScaleImageBase extends Sprite
     /**
      * @copy org.openzoom.flash.viewport.IViewport#scale
      */
-    public function get scale():Number
+    override public function get scale():Number
     {
         return viewport.scale
     }
 
-    public function set scale(value:Number):void
+    override public function set scale(value:Number):void
     {
         viewport.scale = value
     }
@@ -552,13 +556,14 @@ internal class MultiScaleImageBase extends Sprite
     //  Methods: IDisposable
     //
     //--------------------------------------------------------------------------
-
-    public function dispose():void
+    
+    override public function dispose():void
     {
-        container.dispose()
-        container = null
-
-        loader = null
+		super.dispose();
+    	container.dispose()
+    	container = null
+    	
+    	loader = null
     }
 }
 

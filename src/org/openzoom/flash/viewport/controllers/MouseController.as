@@ -1,4 +1,4 @@
-////////////////////////////////////////////////////////////////////////////////
+﻿////////////////////////////////////////////////////////////////////////////////
 //
 //  OpenZoom SDK
 //
@@ -58,7 +58,7 @@ use namespace openzoom_internal;
 public final class MouseController extends ViewportControllerBase
                                    implements IViewportController
 {
-    include "../../core/Version.as"
+	include "../../core/Version.as"
 
     //--------------------------------------------------------------------------
     //
@@ -239,22 +239,22 @@ public final class MouseController extends ViewportControllerBase
      */
     override protected function view_removedFromStageHandler(event:Event):void
     {
-        if (view)
-        {
-            // panning listeners
-            view.removeEventListener(MouseEvent.MOUSE_DOWN,
-                                     view_mouseDownHandler)
-            view.removeEventListener(MouseEvent.ROLL_OUT,
-                                     view_rollOutHandler)
-
-            if (view.stage)
-                view.stage.removeEventListener(Event.MOUSE_LEAVE,
-                                               stage_mouseLeaveHandler)
-
-            // zooming listeners
-            view.removeEventListener(MouseEvent.MOUSE_WHEEL,
-                                     view_mouseWheelHandler)
-        }
+    	if (view)
+    	{
+	        // panning listeners
+	        view.removeEventListener(MouseEvent.MOUSE_DOWN,
+	                                 view_mouseDownHandler)
+	        view.removeEventListener(MouseEvent.ROLL_OUT,
+	                                 view_rollOutHandler)
+	                                 
+            if (view.stage) 
+		        view.stage.removeEventListener(Event.MOUSE_LEAVE,
+		                                       stage_mouseLeaveHandler)
+	
+	        // zooming listeners
+	        view.removeEventListener(MouseEvent.MOUSE_WHEEL,
+	                                 view_mouseWheelHandler)
+    	}
     }
 
     //--------------------------------------------------------------------------
@@ -375,7 +375,7 @@ public final class MouseController extends ViewportControllerBase
         var dx:Number = mouseUpPosition.x - mouseDownPosition.x
         var dy:Number = mouseUpPosition.y - mouseDownPosition.y
 
-        var distance:Number = Math.sqrt(dx*dx + dy*dy)
+        var distance:Number = Math.sqrt(dx * dx + dy * dy)
 
         if (clickEnabled && click && distance < CLICK_THRESHOLD_DISTANCE)
         {

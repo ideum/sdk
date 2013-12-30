@@ -1,4 +1,4 @@
-////////////////////////////////////////////////////////////////////////////////
+﻿////////////////////////////////////////////////////////////////////////////////
 //
 //  OpenZoom SDK
 //
@@ -65,16 +65,19 @@ import org.openzoom.flash.viewport.IViewportController;
 import org.openzoom.flash.viewport.IViewportTransformer;
 import org.openzoom.flash.viewport.NormalizedViewport;
 
+//import id.core.TouchSprite;	
+import com.gestureworks.core.TouchSprite;
+
 use namespace openzoom_internal;
 
 /**
  * Flash component for creating Zoomable User Interfaces.
  */
-public final class MultiScaleContainer extends Sprite
+public final class MultiScaleContainer extends TouchSprite
                                        implements ILoaderClient,
                                                   IDisposable
 {
-    include "../core/Version.as"
+	include "../core/Version.as"
 
     //--------------------------------------------------------------------------
     //
@@ -647,12 +650,12 @@ public final class MultiScaleContainer extends Sprite
     /**
      * @copy org.openzoom.flash.viewport.IViewport#scale
      */
-    public function get scale():Number
+    override public function get scale():Number
     {
         return viewport.zoom
     }
 
-    public function set scale(value:Number):void
+    override public function set scale(value:Number):void
     {
         viewport.scale = value
     }
@@ -810,36 +813,37 @@ public final class MultiScaleContainer extends Sprite
     //  Methods: IDisposable
     //
     //--------------------------------------------------------------------------
-
-    public function dispose():void
+    
+    override public function dispose():void
     {
+		super.dispose();
         removeEventListener(Event.ENTER_FRAME,
                             enterFrameHandler)
 
-        _transformer = null
-        controllers = []
-        _constraint = null
-
-        while (super.numChildren > 0)
-           super.removeChildAt(0)
+    	_transformer = null
+    	controllers = []
+    	_constraint = null
+    	
+    	while (super.numChildren > 0)
+    	   super.removeChildAt(0)
 
         mouseCatcher = null
         contentMask = null
-
+                            
         _viewport.removeEventListener(ViewportEvent.TRANSFORM_START,
                                       viewport_transformStartHandler)
         _viewport.removeEventListener(ViewportEvent.TRANSFORM_UPDATE,
                                       viewport_transformUpdateHandler)
         _viewport.removeEventListener(ViewportEvent.TRANSFORM_END,
                                       viewport_transformEndHandler)
-        _viewport.dispose()
-        _viewport = null
-
-        _scene.dispose()
-        _scene = null
-
-        _loader.dispose()
-        _loader = null
+    	_viewport.dispose()
+    	_viewport = null
+    	
+    	_scene.dispose()
+    	_scene = null
+    	
+    	_loader.dispose()
+    	_loader = null
     }
 }
 

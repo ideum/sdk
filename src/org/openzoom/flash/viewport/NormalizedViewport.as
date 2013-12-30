@@ -60,27 +60,27 @@ use namespace openzoom_internal;
 /**
  * @inheritDoc
  */
-[Event(name="resize", type="org.openzoom.flash.events.ViewportEvent")]
+[Event(name="resize", type="org.openzoom.events.ViewportEvent")]
 
 /**
  * @inheritDoc
  */
-[Event(name="transformStart", type="org.openzoom.flash.events.ViewportEvent")]
+[Event(name="transformStart", type="org.openzoom.events.ViewportEvent")]
 
 /**
  * @inheritDoc
  */
-[Event(name="transformUpdate", type="org.openzoom.flash.events.ViewportEvent")]
+[Event(name="transformUpdate", type="org.openzoom.events.ViewportEvent")]
 
 /**
  * @inheritDoc
  */
-[Event(name="transformEnd", type="org.openzoom.flash.events.ViewportEvent")]
+[Event(name="transformEnd", type="org.openzoom.events.ViewportEvent")]
 
 /**
  * @inheritDoc
  */
-[Event(name="targetUpdate", type="org.openzoom.flash.events.ViewportEvent")]
+[Event(name="targetUpdate", type="org.openzoom.events.ViewportEvent")]
 
 
 /**
@@ -90,7 +90,7 @@ public final class NormalizedViewport extends EventDispatcher
                                       implements INormalizedViewport,
                                                  INormalizedViewportContainer
 {
-    include "../core/Version.as"
+	include "../core/Version.as"
 
     //--------------------------------------------------------------------------
     //
@@ -98,7 +98,7 @@ public final class NormalizedViewport extends EventDispatcher
     //
     //--------------------------------------------------------------------------
 
-    private const NULL_TRANSFORMER:IViewportTransformer = new NullTransformer()
+    private static const NULL_TRANSFORMER:IViewportTransformer = new NullTransformer()
 
     //--------------------------------------------------------------------------
     //
@@ -801,16 +801,16 @@ public final class NormalizedViewport extends EventDispatcher
     //  Methods: IDisposable
     //
     //--------------------------------------------------------------------------
-
+    
     public function dispose():void
     {
         _scene.removeEventListener(Event.RESIZE,
                                    scene_resizeHandler)
-
-        _transform.dispose()
-        _transform = null
-
-        _transformer = null
+    	
+    	_transform.dispose()
+    	_transform = null
+    	
+    	_transformer = null    	
     }
 }
 

@@ -56,15 +56,7 @@ use namespace openzoom_internal;
  */
 public final class MortonOrder
 {
-    include "../core/Version.as"
-
-    //--------------------------------------------------------------------------
-    //
-    //  Class constants
-    //
-    //--------------------------------------------------------------------------
-
-    private static const UINT_LENGTH:uint = 32
+	include "../core/Version.as"
 
     //--------------------------------------------------------------------------
     //
@@ -73,48 +65,50 @@ public final class MortonOrder
     //--------------------------------------------------------------------------
 
     /**
-     * Returns a point (x, y) for a given Morton number.
+     * Returns the position (column, row) for a given Morton number.
      *
      * @param value Morton number (Z-order)
      *
-     * @return Point of the Morton number in space (x, y)
+     * @return Position of the Morton number in space (column, row)
      */
-    public static function getPoint(value:uint):Point
+    public static function getPosition(value:uint):Point
     {
-        var x:uint
-        var y:uint
+        var column:uint
+        var row:uint
 
-        for (var i:uint = 0; i < UINT_LENGTH; i += 2)
+        for (var i:uint = 0; i < 32; i += 2)
         {
             var offset:uint = i / 2
 
             var columnOffset:uint = i
             var columnMask:uint = 1 << columnOffset
             var columnValue:uint = (value & columnMask) >> columnOffset
-            x |= columnValue << offset
+            column |= columnValue << offset
 
             var rowOffset:uint = i + 1
             var rowMask:uint = 1 << rowOffset
             var rowValue:uint = (value & rowMask) >> rowOffset
-            y |= rowValue << offset
+            row |= rowValue << offset
         }
 
-        return new Point(x, y)
+        var position:Point = new Point(column, row)
+        return position
     }
 
     /**
-     * Returns Morton number for the given point (x, y).
+     * Returns Morton number for the given position (column, row).
      *
-     * @param point Point
+     * @param column Column of the position
+     * @param row Row of the position
      *
      * @return Morton number for the given coordinates.
      */
-    public static function getValue(point:Point):uint
+    public static function getValue(column:int, row:int):uint
     {
         var mortonOrder:uint
 
-        for (var i:int = 0; i < UINT_LENGTH; i++)
-            mortonOrder |= (point.x & 1 << i) << i | (point.y & 1 << i) << (i + 1)
+        for (var i:int = 0; i < 32; i++)
+            mortonOrder |= (column & 1 << i) << i | (row & 1 << i) << (i + 1)
 
         return mortonOrder
     }

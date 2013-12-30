@@ -63,7 +63,7 @@ import org.openzoom.flash.descriptors.openstreetmap.OpenStreetMapDescriptor; Ope
 import org.openzoom.flash.descriptors.openzoom.OpenZoomDescriptor; OpenZoomDescriptor
 import org.openzoom.flash.descriptors.rosettaproject.RosettaDiskBackDescriptor; RosettaDiskBackDescriptor
 import org.openzoom.flash.descriptors.rosettaproject.RosettaDiskFrontDescriptor; RosettaDiskFrontDescriptor
-import org.openzoom.flash.descriptors.virtualearth.VirtualEarthDescriptor; VirtualEarthDescriptor
+//import org.openzoom.flash.descriptors.virtualearth.VirtualEarthDescriptor; VirtualEarthDescriptor
 import org.openzoom.flash.descriptors.zoomify.ZoomifyDescriptor; ZoomifyDescriptor
 
     // Utils
@@ -102,10 +102,10 @@ import org.openzoom.flash.viewport.transformers.TweensyZeroTransformer; TweensyZ
     // Viewport
 import org.openzoom.flash.viewport.SceneViewport; SceneViewport
 
-    // Flex components
-import org.openzoom.flex.components.DeepZoomContainer; DeepZoomContainer
-import org.openzoom.flex.components.MemoryMonitor; org.openzoom.flex.components.MemoryMonitor
-import org.openzoom.flex.components.MultiScaleImage; org.openzoom.flex.components.MultiScaleImage
+// Flex components
+//import org.openzoom.flex.components.DeepZoomContainer; DeepZoomContainer
+//import org.openzoom.flex.components.MemoryMonitor; org.openzoom.flex.components.MemoryMonitor
+//import org.openzoom.flex.components.MultiScaleImage; org.openzoom.flex.components.MultiScaleImage
 }
 
 }

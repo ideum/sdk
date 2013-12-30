@@ -1,4 +1,4 @@
-////////////////////////////////////////////////////////////////////////////////
+﻿////////////////////////////////////////////////////////////////////////////////
 //
 //  OpenZoom SDK
 //
@@ -40,6 +40,8 @@ package org.openzoom.flash.viewport
 {
 
 import flash.display.DisplayObject
+//import id.core.TouchSprite;
+import com.gestureworks.core.TouchSprite;
 
 import org.openzoom.flash.viewport.INormalizedViewport;
 
@@ -61,8 +63,8 @@ public interface IViewportController
     /**
      * Indicates the display object the controller receives events from.
      */
-    function get view():DisplayObject
-    function set view(value:DisplayObject):void
+    function get view():TouchSprite//DisplayObject
+    function set view(value:TouchSprite):void //DisplayObject
 
     //----------------------------------
     //  viewport

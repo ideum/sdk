@@ -1,4 +1,4 @@
-////////////////////////////////////////////////////////////////////////////////
+﻿////////////////////////////////////////////////////////////////////////////////
 //
 //  OpenZoom SDK
 //
@@ -45,6 +45,12 @@ import flash.events.Event;
 import org.openzoom.flash.core.openzoom_internal;
 import org.openzoom.flash.viewport.INormalizedViewport;
 
+//import id.core.TouchObject;	
+//import id.core.TouchObjectContainer;
+//import id.core.TouchSprite;	
+import com.gestureworks.core.TouchSprite;
+
+
 use namespace openzoom_internal;
 
 /**
@@ -57,7 +63,7 @@ use namespace openzoom_internal;
  */
 public class ViewportControllerBase
 {
-    include "../../core/Version.as"
+	include "../../core/Version.as"
 
     //--------------------------------------------------------------------------
     //
@@ -101,17 +107,17 @@ public class ViewportControllerBase
     //  view
     //----------------------------------
 
-    private var _view:DisplayObject
+    private var _view:TouchSprite //DisplayObject
 
     /**
      * Indicates the display object this controller receives its events from.
      */
-    public function get view():DisplayObject
+    public function get view():TouchSprite//DisplayObject
     {
         return _view
     }
 
-    public function set view(value:DisplayObject):void
+    public function set view(value:TouchSprite):void //DisplayObject
     {
         if (view === value)
             return
@@ -123,12 +129,8 @@ public class ViewportControllerBase
 
         if (value)
         {
-            view.addEventListener(Event.ADDED_TO_STAGE,
-                                  view_addedToStageHandler,
-                                  false, 0, true)
-            view.addEventListener(Event.REMOVED_FROM_STAGE,
-                                  view_removedFromStageHandler,
-                                  false, 0, true)
+            view.addEventListener(Event.ADDED_TO_STAGE,view_addedToStageHandler,false, 0, true)
+            view.addEventListener(Event.REMOVED_FROM_STAGE, view_removedFromStageHandler,false, 0, true)
 
             if (view.stage)
                 view_addedToStageHandler(null)
