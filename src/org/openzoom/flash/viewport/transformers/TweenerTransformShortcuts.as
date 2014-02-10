@@ -155,8 +155,10 @@ internal final class TweenerTransformShortcuts
                                                    extra:Object=null):void
     {
         var t:IViewportTransform = obj.transform
-        t[parameters[0]] = value
+        if(t) {
+				t[parameters[0]] = value
         obj.transform = t
+				}
     }
 }
 

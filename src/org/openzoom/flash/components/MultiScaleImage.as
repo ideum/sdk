@@ -278,21 +278,24 @@ public final class MultiScaleImage extends MultiScaleImageBase
     
     override public function dispose():void
     {
-    	image.dispose()
-    	image = null
-    	
-    	try
-    	{
-	    	urlLoader.close()
-    	}
-    	catch(error:Error)
-    	{
-    		// Do nothing
+		trace('MultiScaleImage dispose');
+			if(image) {
+				image.dispose()
+				image = null
     	}
     	
-    	urlLoader = null
-    	
-    	super.dispose()
+			if (urlLoader) {
+				try {
+					urlLoader.close()
+				} catch(error:Error) {
+					// Do nothing
+				}
+				urlLoader.removeEventListener(Event.COMPLETE, urlLoader_completeHandler);
+				urlLoader.removeEventListener(IOErrorEvent.IO_ERROR, urlLoader_ioErrorHandler);
+				urlLoader.removeEventListener(SecurityErrorEvent.SECURITY_ERROR, urlLoader_securityErrorHandler);
+				urlLoader = null
+    	}
+    	//super.dispose()
     }
 }
 

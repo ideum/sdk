@@ -178,7 +178,10 @@ public final class ImagePyramidRenderer extends Renderer
      */
     openzoom_internal function getTile(level:int, column:int, row:int):ImagePyramidTile
     {
-        var descriptor:IImagePyramidDescriptor = _source as IImagePyramidDescriptor
+        if (!tileCache) {
+					return null;
+				}
+				var descriptor:IImagePyramidDescriptor = _source as IImagePyramidDescriptor
 
         if (!descriptor)
            trace("[ImagePyramidRenderer] getTile: Source undefined")
@@ -220,9 +223,19 @@ public final class ImagePyramidRenderer extends Renderer
 
     public function dispose():void
     {
-        tileCache = null
-        removeChild(openzoom_internal::tileLayer)
-        openzoom_internal::tileLayer = null
+			trace('ImagePyramidRenderer dispose');
+      if(tileCache) {
+				var item:ImagePyramidTile;
+				for (var s:* in tileCache) {
+					item = tileCache[s] as ImagePyramidTile;
+					if (item) {
+						item.dispose();
+					}
+				}
+				tileCache = null;
+			}
+      removeChild(openzoom_internal::tileLayer)
+      openzoom_internal::tileLayer = null
     }
 }
 

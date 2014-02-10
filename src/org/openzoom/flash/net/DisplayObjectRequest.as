@@ -229,6 +229,7 @@ internal final class DisplayObjectRequest extends EventDispatcher
      */
     public function dispose():void
     {
+				trace('DisplayObjectRequest dispose');
         disposeLoader()
         context = null
         _url = null

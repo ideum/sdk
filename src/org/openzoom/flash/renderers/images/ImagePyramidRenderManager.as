@@ -134,7 +134,6 @@ public final class ImagePyramidRenderManager implements IDisposable
     //  Variables
     //
     //--------------------------------------------------------------------------
-
     private var renderers:Array /* of ImagePyramidRenderer */ = []
 
     private var owner:Sprite
@@ -356,6 +355,9 @@ public final class ImagePyramidRenderManager implements IDisposable
 
         // Prepare tile layer
         var tileLayer:Shape = renderer.openzoom_internal::tileLayer
+				if (!tileLayer) {
+					return;
+				}
         var g:Graphics = tileLayer.graphics
         g.clear()
         g.beginFill(0xFF0000, 0)
@@ -536,17 +538,23 @@ public final class ImagePyramidRenderManager implements IDisposable
 
     public function dispose():void
     {
+			trace('ImagePyramidRenderManager dispose');
         // Remove render loop
+				if(owner) {
         owner.removeEventListener(Event.ENTER_FRAME /* "exitFrame" */,
                                   enterFrameHandler)
-
-        owner = null
-        scene = null
+				owner = null
+        }
+				
+				scene = null
         viewport = null
-        loader = null
-
-        tileCache.dispose()
-        tileCache = null
+				tileLoader = null;
+				loader = null
+				
+				if(tileCache) {
+					tileCache.dispose()
+					tileCache = null
+				}
     }
 }
 

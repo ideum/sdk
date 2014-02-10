@@ -269,7 +269,10 @@ public final class NormalizedViewport extends EventDispatcher
      */
     public function get transform():IViewportTransform
     {
-        return _transform.clone()
+				if(_transform) {
+					return _transform.clone()
+				}
+				return null;
     }
 
     public function set transform(value:IViewportTransform):void

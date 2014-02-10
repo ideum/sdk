@@ -137,7 +137,6 @@ internal final class TileLoader extends EventDispatcher
     private function request_completeHandler(event:NetworkRequestEvent):void
     {
         numDownloads--
-
         var tile:ImagePyramidTile = event.context as ImagePyramidTile
         var bitmapData:BitmapData = Bitmap(event.data).bitmapData
 

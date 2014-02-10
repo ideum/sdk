@@ -364,9 +364,10 @@ public final class MultiScaleContainer extends TouchSprite
         {
             var imagePyramidRenderer:ImagePyramidRenderer = renderer as ImagePyramidRenderer
 
-            if (imagePyramidRenderer)
-                renderManager.removeRenderer(imagePyramidRenderer)
-
+            if (imagePyramidRenderer) {
+							renderManager.removeRenderer(imagePyramidRenderer)
+							//TODO: dispose?
+						}
             renderer.scene = null
             renderer.viewport = null
         }
@@ -814,36 +815,44 @@ public final class MultiScaleContainer extends TouchSprite
     //
     //--------------------------------------------------------------------------
     
-    override public function dispose():void
-    {
-		super.dispose();
-        removeEventListener(Event.ENTER_FRAME,
+    override public function dispose():void {
+			super.dispose();
+			removeEventListener(Event.ENTER_FRAME,
                             enterFrameHandler)
 
     	_transformer = null
     	controllers = []
     	_constraint = null
     	
-    	while (super.numChildren > 0)
-    	   super.removeChildAt(0)
-
-        mouseCatcher = null
-        contentMask = null
-                            
-        _viewport.removeEventListener(ViewportEvent.TRANSFORM_START,
-                                      viewport_transformStartHandler)
-        _viewport.removeEventListener(ViewportEvent.TRANSFORM_UPDATE,
-                                      viewport_transformUpdateHandler)
-        _viewport.removeEventListener(ViewportEvent.TRANSFORM_END,
-                                      viewport_transformEndHandler)
-    	_viewport.dispose()
-    	_viewport = null
+    	while (super.numChildren > 0) {
+				super.removeChildAt(0);
+			}
+			mouseCatcher = null
+			contentMask = null
+			
+			if (renderManager) {
+				renderManager.dispose();
+				renderManager = null;
+			}
+			
+			if(_viewport) {
+					_viewport.removeEventListener(ViewportEvent.TRANSFORM_START, viewport_transformStartHandler);
+					_viewport.removeEventListener(ViewportEvent.TRANSFORM_UPDATE, viewport_transformUpdateHandler);
+					_viewport.removeEventListener(ViewportEvent.TRANSFORM_END, viewport_transformEndHandler);
+					_viewport.dispose();
+					_viewport = null;
+			}
+			
+			if (_scene) {
+				_scene.dispose()
+				_scene = null
+			}
     	
-    	_scene.dispose()
-    	_scene = null
+    	if (_loader) {
+				_loader.dispose()
+				_loader = null
+			}
     	
-    	_loader.dispose()
-    	_loader = null
     }
 }
 
