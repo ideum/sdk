@@ -44,6 +44,8 @@ import flash.display.BitmapData;
 import flash.events.EventDispatcher;
 import flash.utils.Dictionary;
 import flash.utils.getTimer;
+import org.openzoom.flash.net.DisplayObjectRequest;
+import org.openzoom.flash.utils.IDisposable;
 
 import org.openzoom.flash.core.openzoom_internal;
 import org.openzoom.flash.events.NetworkRequestEvent;
@@ -57,7 +59,7 @@ use namespace openzoom_internal;
 /**
  * @private
  */
-internal final class TileLoader extends EventDispatcher
+internal final class TileLoader extends EventDispatcher implements IDisposable
 {
     include "../../core/Version.as"
 
@@ -95,6 +97,7 @@ internal final class TileLoader extends EventDispatcher
     internal var maxDownloads:int
     private var numDownloads:int
     private var pending:Dictionary = new Dictionary()
+		//private var pool:Vector.<INetworkRequest> = new Vector.<INetworkRequest>();
 
     //--------------------------------------------------------------------------
     //
@@ -118,7 +121,6 @@ internal final class TileLoader extends EventDispatcher
         numDownloads++
 
         var request:INetworkRequest = loader.addRequest(tile.url, Bitmap, tile)
-
         request.addEventListener(NetworkRequestEvent.COMPLETE,
                                  request_completeHandler,
                                  false, 0, true)
@@ -136,7 +138,12 @@ internal final class TileLoader extends EventDispatcher
      */
     private function request_completeHandler(event:NetworkRequestEvent):void
     {
-        numDownloads--
+				var t:DisplayObjectRequest = event.target as DisplayObjectRequest;
+				t.removeEventListener(NetworkRequestEvent.COMPLETE,
+                                 request_completeHandler);
+				t.removeEventListener(NetworkRequestEvent.ERROR,
+                                 request_errorHandler);
+        numDownloads--;
         var tile:ImagePyramidTile = event.context as ImagePyramidTile
         var bitmapData:BitmapData = Bitmap(event.data).bitmapData
 
@@ -163,6 +170,20 @@ internal final class TileLoader extends EventDispatcher
         numDownloads--
         owner.invalidateDisplayList()
     }
+		
+		public function dispose():void {
+			if (loader) {
+				loader.dispose();
+				loader = null;
+			}
+			
+			if (cache) {
+				cache.dispose();
+				cache = null;
+			}
+			
+			owner = null;
+		}
 }
 
 }

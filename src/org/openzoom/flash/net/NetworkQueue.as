@@ -172,6 +172,7 @@ public final class NetworkQueue extends EventDispatcher
 
         if (queue.length == 0 && connections.length == 0)
             dispatchEvent(new Event(Event.COMPLETE))
+				
     }
 
     /**
@@ -233,8 +234,7 @@ public final class NetworkQueue extends EventDispatcher
     public function dispose():void
     {
         var request:INetworkRequest
-        for each (request in queue)
-        {
+        for each (request in queue) {
             removeEventListeners(request)
             request.dispose()
         }

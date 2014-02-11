@@ -231,7 +231,6 @@ internal class ImagePyramidTile implements IDisposable,
 
     public function dispose():void
     {
-			trace('ImagePyramidTile dispose');
         if(_source) {
 					_source.bitmapData.dispose();
 					_source.bitmapData = null;

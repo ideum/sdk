@@ -187,7 +187,6 @@ public final class Cache implements ICache
      */
     public function dispose():void
     {
-			trace('Cache dispose');
 			var cacheItem:ICacheItem;
 				for (var i:int = 0; i < items.length; i++) {
 					cacheItem = items[i] as ICacheItem;

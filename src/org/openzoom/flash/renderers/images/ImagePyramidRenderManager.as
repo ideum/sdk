@@ -538,8 +538,7 @@ public final class ImagePyramidRenderManager implements IDisposable
 
     public function dispose():void
     {
-			trace('ImagePyramidRenderManager dispose');
-        // Remove render loop
+				// Remove render loop
 				if(owner) {
         owner.removeEventListener(Event.ENTER_FRAME /* "exitFrame" */,
                                   enterFrameHandler)
@@ -547,9 +546,26 @@ public final class ImagePyramidRenderManager implements IDisposable
         }
 				
 				scene = null
-        viewport = null
-				tileLoader = null;
-				loader = null
+        viewport = null;
+				if(tileLoader) {
+					tileLoader.dispose();
+					tileLoader = null;
+				}
+				if (loader) {
+					loader.dispose();
+					loader = null;	
+				}
+				
+				
+				if (renderers && renderers.length > 0) {
+					var iDisposable:IDisposable;
+					while (renderers.length > 0) {
+						iDisposable = renderers.pop() as IDisposable;
+						iDisposable.dispose();
+						iDisposable = null;
+					}
+					renderers = null;
+				}
 				
 				if(tileCache) {
 					tileCache.dispose()

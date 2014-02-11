@@ -60,7 +60,7 @@ use namespace openzoom_internal;
  *
  * Represents a single DisplayObject item to load.
  */
-internal final class DisplayObjectRequest extends EventDispatcher
+public final class DisplayObjectRequest extends EventDispatcher
                                           implements INetworkRequest
 {
     include "../core/Version.as"
@@ -229,7 +229,6 @@ internal final class DisplayObjectRequest extends EventDispatcher
      */
     public function dispose():void
     {
-				trace('DisplayObjectRequest dispose');
         disposeLoader()
         context = null
         _url = null

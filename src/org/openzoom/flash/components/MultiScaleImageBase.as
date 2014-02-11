@@ -559,12 +559,15 @@ internal class MultiScaleImageBase extends TouchSprite
     
     override public function dispose():void
     {
-		trace('MultiScaleImageBase dispose');
-		super.dispose();
+			super.dispose();
+			if(container) {
     	container.dispose()
     	container = null
-    	
-    	loader = null
+    	}
+			if(loader) {
+				loader.dispose();
+				loader = null
+			}
     }
 }
 

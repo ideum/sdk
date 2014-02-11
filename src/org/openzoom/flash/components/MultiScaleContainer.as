@@ -366,7 +366,7 @@ public final class MultiScaleContainer extends TouchSprite
 
             if (imagePyramidRenderer) {
 							renderManager.removeRenderer(imagePyramidRenderer)
-							//TODO: dispose?
+							imagePyramidRenderer.dispose();
 						}
             renderer.scene = null
             renderer.viewport = null
@@ -833,6 +833,11 @@ public final class MultiScaleContainer extends TouchSprite
 			if (renderManager) {
 				renderManager.dispose();
 				renderManager = null;
+			}
+			
+			if (_loader) {
+				_loader.dispose();
+				_loader = null;
 			}
 			
 			if(_viewport) {

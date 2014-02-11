@@ -122,7 +122,6 @@ internal final class SourceTile implements ICacheItem
      */
     public function dispose():void
     {
-			trace('SourceTile dispose');
         for each (var tile:ImagePyramidTile in owners)
             tile.dispose()
 
