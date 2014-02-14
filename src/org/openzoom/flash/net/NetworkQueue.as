@@ -238,8 +238,8 @@ public final class NetworkQueue extends EventDispatcher
             removeEventListeners(request)
             request.dispose()
         }
-
-        queue = []
+				request = null;
+        queue = null;
 
         for each (request in connections)
         {
@@ -247,8 +247,7 @@ public final class NetworkQueue extends EventDispatcher
             request.dispose()
         }
 
-        connections = []
-
+        connections = null
     }
 }
 

@@ -189,6 +189,13 @@ public final class TweenerTransformer extends ViewportTransformerBase
             viewport.endTransform()
         }
     }
+		
+		override public function dispose():void {
+			_easing = null;
+			stop();
+			super.dispose();
+			Tweener.removeAllTweens();
+		}
 }
 
 }

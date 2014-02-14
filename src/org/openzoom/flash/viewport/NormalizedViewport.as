@@ -807,13 +807,21 @@ public final class NormalizedViewport extends EventDispatcher
     
     public function dispose():void
     {
-        _scene.removeEventListener(Event.RESIZE,
-                                   scene_resizeHandler)
+      if (_scene) {
+				_scene.removeEventListener(Event.RESIZE, scene_resizeHandler)
+				_scene.dispose();
+				_scene = null;
+			}
+			
+			if(_transform) {
+				_transform.dispose()
+				_transform = null
+    	}
     	
-    	_transform.dispose()
-    	_transform = null
-    	
-    	_transformer = null    	
+			if(_transformer) {
+				_transformer.dispose();
+				_transformer = null
+			}
     }
 }
 

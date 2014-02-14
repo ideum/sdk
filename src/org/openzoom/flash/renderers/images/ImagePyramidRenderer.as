@@ -221,7 +221,7 @@ public final class ImagePyramidRenderer extends Renderer
     //
     //--------------------------------------------------------------------------
 
-    public function dispose():void
+    override public function dispose():void
     {
       if(tileCache) {
 				var item:ImagePyramidTile;
@@ -231,12 +231,17 @@ public final class ImagePyramidRenderer extends Renderer
 						item.dispose();
 					}
 				}
+				item = null;
+				s = null;
 				tileCache = null;
 			}
+			
 			if(openzoom_internal::tileLayer) {
 				removeChild(openzoom_internal::tileLayer)
 				openzoom_internal::tileLayer = null
 			}
+			_source = null;
+			super.dispose();
     }
 }
 

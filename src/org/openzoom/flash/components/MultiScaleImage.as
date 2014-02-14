@@ -278,12 +278,12 @@ public final class MultiScaleImage extends MultiScaleImageBase
     
     override public function dispose():void
     {
-			super.dispose()
 			if(image) {
 				image.dispose()
 				image = null
     	}
-    	
+    	url = null;
+			
 			if (urlLoader) {
 				try {
 					urlLoader.close()
@@ -295,7 +295,12 @@ public final class MultiScaleImage extends MultiScaleImageBase
 				urlLoader.removeEventListener(SecurityErrorEvent.SECURITY_ERROR, urlLoader_securityErrorHandler);
 				urlLoader = null
     	}
-    	
+			
+			if (_source) {
+				_source = null;
+			}
+			
+			super.dispose()
     }
 }
 

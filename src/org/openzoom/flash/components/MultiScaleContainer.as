@@ -104,7 +104,7 @@ public final class MultiScaleContainer extends TouchSprite
      */
     public function MultiScaleContainer()
     {
-        createChildren()
+        
     }
 
     //--------------------------------------------------------------------------
@@ -290,7 +290,7 @@ public final class MultiScaleContainer extends TouchSprite
     //
     //--------------------------------------------------------------------------
 
-    private function createChildren():void
+    public function createChildren():void
     {
         if (!scene)
             createScene()
@@ -546,6 +546,7 @@ public final class MultiScaleContainer extends TouchSprite
         _controllers.push(controller)
         controller.viewport = viewport
         controller.view = this
+				//controller.view = parent as TouchSprite;
         return true
     }
 
@@ -817,8 +818,7 @@ public final class MultiScaleContainer extends TouchSprite
     
     override public function dispose():void {
 			super.dispose();
-			removeEventListener(Event.ENTER_FRAME,
-                            enterFrameHandler)
+			removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
 
     	_transformer = null
     	controllers = []
@@ -852,12 +852,6 @@ public final class MultiScaleContainer extends TouchSprite
 				_scene.dispose()
 				_scene = null
 			}
-    	
-    	if (_loader) {
-				_loader.dispose()
-				_loader = null
-			}
-    	
     }
 }
 

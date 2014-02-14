@@ -183,6 +183,11 @@ internal final class TileLoader extends EventDispatcher implements IDisposable
 			}
 			
 			owner = null;
+			for (var s:* in pending) {
+				pending[s] = null;
+			}
+			s = null;
+			pending = null;
 		}
 }
 

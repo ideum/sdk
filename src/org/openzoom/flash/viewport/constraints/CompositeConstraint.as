@@ -40,6 +40,7 @@ package org.openzoom.flash.viewport.constraints
 {
 
 import org.openzoom.flash.core.openzoom_internal;
+import org.openzoom.flash.utils.IDisposable;
 import org.openzoom.flash.viewport.IViewportConstraint;
 import org.openzoom.flash.viewport.IViewportTransform;
 
@@ -51,7 +52,7 @@ use namespace openzoom_internal;
  * at the same time. This class is an implementation of the
  * Composite Design Pattern by the GoF.
  */
-public final class CompositeConstraint implements IViewportConstraint
+public final class CompositeConstraint implements IDisposable, IViewportConstraint
 {
     include "../../core/Version.as"
 
@@ -111,6 +112,11 @@ public final class CompositeConstraint implements IViewportConstraint
 
         return transform
     }
+		
+		public function dispose():void {
+			_constraints = null;
+			
+		}
 }
 
 }

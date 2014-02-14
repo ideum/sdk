@@ -238,7 +238,9 @@ internal class ImagePyramidTile implements IDisposable,
 				
 				}
         loading = false
-
+				url = null;
+				bounds = null;
+				
         alpha = 0
         blendStartTime = 0
     }

@@ -123,6 +123,8 @@ public final class TouchController extends ViewportControllerBase
 			view.removeEventListener(GWGestureEvent.DRAG, view_dragHandler);
 			view.removeEventListener(GWGestureEvent.SCALE, view_scaleHandler);
     	}
+			viewDragVector = null;
+			viewportDragVector = null;
     }
     //--------------------------------------------------------------------------
    

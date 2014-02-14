@@ -265,6 +265,7 @@ internal class MultiScaleImageBase extends TouchSprite
     {
         container = new MultiScaleContainer()
         super.addChild(container)
+				container.createChildren();
     }
 
     //--------------------------------------------------------------------------

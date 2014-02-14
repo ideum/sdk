@@ -39,6 +39,7 @@
 package org.openzoom.flash.renderers
 {
 import flash.display.Sprite;
+import org.openzoom.flash.utils.IDisposable;
 
 import org.openzoom.flash.core.openzoom_internal;
 import org.openzoom.flash.events.RendererEvent;
@@ -71,7 +72,7 @@ use namespace openzoom_internal;
  * Base class for all renderers on a multiscale scene.
  */
 public class Renderer extends Sprite
-                      implements IRenderer
+                      implements IDisposable, IRenderer
 {
     include "../core/Version.as"
 
@@ -164,6 +165,13 @@ public class Renderer extends Sprite
         return Math.max(normalizedWidth / viewport.width,
                         normalizedHeight / viewport.height)
     }
+		
+		/* INTERFACE org.openzoom.flash.utils.IDisposable */
+		
+		public function dispose():void {
+			_scene = null;
+			_viewport = null;
+		}
 }
 
 }

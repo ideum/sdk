@@ -124,7 +124,8 @@ internal final class SourceTile implements ICacheItem
     {
         for each (var tile:ImagePyramidTile in owners)
             tile.dispose()
-
+				tile = null;
+				owners = null;
         url = null
         bitmapData = null
         level = 0

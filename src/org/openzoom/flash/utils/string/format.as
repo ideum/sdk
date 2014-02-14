@@ -44,7 +44,7 @@ package org.openzoom.flash.utils.string
 		
 		for (var i:int = 0; i < rest.length; i++)
 			result = result.replace("{" + i + "}", rest[i]) 
-		
+		string = null;
 		return result
 	}
 }
