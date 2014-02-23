@@ -57,7 +57,7 @@ use namespace openzoom_internal;
 public final class BingMapsDescriptor extends ImagePyramidDescriptorBase
                                       implements IImagePyramidDescriptor
 {
-    include "../../core/Version.as"
+
 
     //--------------------------------------------------------------------------
     //

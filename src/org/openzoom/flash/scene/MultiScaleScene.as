@@ -65,7 +65,7 @@ public class MultiScaleScene extends Sprite
                              implements IMultiScaleScene,
                                         IReadonlyMultiScaleScene
 {
-    include "../core/Version.as"
+
 
     //--------------------------------------------------------------------------
     //

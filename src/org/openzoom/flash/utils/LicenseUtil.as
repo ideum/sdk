@@ -54,7 +54,7 @@ package org.openzoom.flash.utils
      */
     public final class LicenseUtil
     {
-        include "../core/Version.as"
+    
 
         //--------------------------------------------------------------------------
         //
@@ -69,24 +69,24 @@ package org.openzoom.flash.utils
         public static function addAboutMenuItem(interactiveObject:InteractiveObject,
                                                 hideBuiltInItems:Boolean=true):void
         {
-            if (interactiveObject.contextMenu == null)
-            {
-                interactiveObject.contextMenu = new ContextMenu()
-                if (hideBuiltInItems)
-                    interactiveObject.contextMenu.hideBuiltInItems()
-            }
-
-            var item:ContextMenuItem = new ContextMenuItem("About OpenZoom...", true)
-
-            item.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT,
-                function(event:ContextMenuEvent):void
-                {
-                    if (event.target == item)
-                        navigateToURL(new URLRequest("http://openzoom.org"), "_blank")
-                }
-            )
-
-            interactiveObject.contextMenu.customItems.push(item)
+            //if (interactiveObject.contextMenu == null)
+            //{
+                //interactiveObject.contextMenu = new ContextMenu()
+                //if (hideBuiltInItems)
+                    //interactiveObject.contextMenu.hideBuiltInItems()
+            //}
+//
+            //var item:ContextMenuItem = new ContextMenuItem("About OpenZoom...", true)
+//
+            //item.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT,
+                //function(event:ContextMenuEvent):void
+                //{
+                    //if (event.target == item)
+                        //navigateToURL(new URLRequest("http://openzoom.org"), "_blank")
+                //}
+            //)
+//
+            //interactiveObject.contextMenu.customItems.push(item)
         }
     }
 }

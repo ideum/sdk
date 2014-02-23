@@ -52,7 +52,7 @@ use namespace openzoom_internal;
 public final class ViewportTransform implements IViewportTransform,
                                                 IViewportTransformContainer
 {
-    include "../core/Version.as"
+
 
     //--------------------------------------------------------------------------
     //

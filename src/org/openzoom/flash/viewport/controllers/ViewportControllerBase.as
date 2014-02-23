@@ -63,7 +63,7 @@ use namespace openzoom_internal;
  */
 public class ViewportControllerBase
 {
-	include "../../core/Version.as"
+	
 
     //--------------------------------------------------------------------------
     //

@@ -69,7 +69,7 @@ internal class MultiScaleImageBase extends TouchSprite
                                               ILoaderClient,
                                               IDisposable
 {
-	include "../core/Version.as"
+
 
     //--------------------------------------------------------------------------
     //

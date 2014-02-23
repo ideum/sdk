@@ -57,7 +57,7 @@ use namespace openzoom_internal;
 internal class ImagePyramidTile implements IDisposable,
                                            IComparable
 {
-    include "../../core/Version.as"
+
 
     //--------------------------------------------------------------------------
     //

@@ -58,7 +58,7 @@ use namespace openzoom_internal;
 public final class DjatokaDescriptor extends ImagePyramidDescriptorBase
                                      implements IImagePyramidDescriptor
 {
-    include "../../core/Version.as"
+
 
     //--------------------------------------------------------------------------
     //

@@ -28,7 +28,7 @@
 public final class TouchController extends ViewportControllerBase
                                    implements IViewportController
 {
-	include "../../core/Version.as"
+	
 
     private static const DEFAULT_TAP_ZOOM_IN_FACTOR:Number = 1.7
     private static const DEFAULT_TAP_ZOOM_OUT_FACTOR:Number = 0.3

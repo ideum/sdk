@@ -58,7 +58,7 @@ use namespace openzoom_internal;
 public class IIPImageDescriptor extends ImagePyramidDescriptorBase
                                 implements IImagePyramidDescriptor
 {
-    include "../../core/Version.as"
+
 
     //--------------------------------------------------------------------------
     //

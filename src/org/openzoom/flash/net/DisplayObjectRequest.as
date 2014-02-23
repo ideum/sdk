@@ -63,7 +63,7 @@ use namespace openzoom_internal;
 public final class DisplayObjectRequest extends EventDispatcher
                                           implements INetworkRequest
 {
-    include "../core/Version.as"
+
 
     //--------------------------------------------------------------------------
     //

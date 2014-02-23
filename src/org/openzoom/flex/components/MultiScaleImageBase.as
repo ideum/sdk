@@ -62,7 +62,7 @@ use namespace openzoom_internal;
 internal class MultiScaleImageBase extends UIComponent
                                   /*implements IMultiScaleContainer*/
 {
-    include "../../flash/core/Version.as"
+    
 
     //--------------------------------------------------------------------------
     //

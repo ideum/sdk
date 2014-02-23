@@ -55,7 +55,7 @@ use namespace openzoom_internal;
  */
 public class ViewportTransformerBase
 {
-    include "../../core/Version.as"
+
 
     //--------------------------------------------------------------------------
     //

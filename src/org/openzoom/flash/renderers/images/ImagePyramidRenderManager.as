@@ -72,7 +72,7 @@ use namespace openzoom_internal;
  */
 public final class ImagePyramidRenderManager implements IDisposable
 {
-	include "../../core/Version.as"
+	
 
     //--------------------------------------------------------------------------
     //

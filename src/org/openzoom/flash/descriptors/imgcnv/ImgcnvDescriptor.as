@@ -58,7 +58,7 @@ package org.openzoom.flash.descriptors.imgcnv
     public final class ImgcnvDescriptor extends ImagePyramidDescriptorBase
         implements IImagePyramidDescriptor
     {
-        include "../../core/Version.as"
+    
 
         //--------------------------------------------------------------------------
         //

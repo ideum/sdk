@@ -77,7 +77,7 @@ public final class MultiScaleContainer extends TouchSprite
                                        implements ILoaderClient,
                                                   IDisposable
 {
-	include "../core/Version.as"
+
 
     //--------------------------------------------------------------------------
     //

@@ -75,7 +75,7 @@ use namespace openzoom_internal;
 public final class MultiScaleContainer extends UIComponent
                                        implements ILoaderClient
 {
-    include "../../flash/core/Version.as"
+    
 
     //--------------------------------------------------------------------------
     //
@@ -737,7 +737,7 @@ public final class MultiScaleContainer extends UIComponent
 
         _controllers.push(controller)
         controller.viewport = _viewport
-        controller.view = this
+      //  controller.view = this
         return true
     }
 

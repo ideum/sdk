@@ -58,7 +58,7 @@ use namespace openzoom_internal;
 public final class MouseController extends ViewportControllerBase
                                    implements IViewportController
 {
-	include "../../core/Version.as"
+	
 
     //--------------------------------------------------------------------------
     //

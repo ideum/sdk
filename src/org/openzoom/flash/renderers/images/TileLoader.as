@@ -61,7 +61,7 @@ use namespace openzoom_internal;
  */
 internal final class TileLoader extends EventDispatcher implements IDisposable
 {
-    include "../../core/Version.as"
+
 
     //--------------------------------------------------------------------------
     //

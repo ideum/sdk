@@ -52,7 +52,7 @@ use namespace openzoom_internal;
  */
 public final class FullScreenUtil
 {
-    include "../core/Version.as"
+
 
     //--------------------------------------------------------------------------
     //

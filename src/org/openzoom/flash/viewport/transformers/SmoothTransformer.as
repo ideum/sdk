@@ -61,7 +61,7 @@ use namespace openzoom_internal;
 public class SmoothTransformer extends ViewportTransformerBase
                                implements IViewportTransformer
 {
-    include "../../core/Version.as"
+
 
     //--------------------------------------------------------------------------
     //

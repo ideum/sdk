@@ -62,7 +62,7 @@ use namespace openzoom_internal;
 public final class ContextMenuController extends ViewportControllerBase
                                          implements IViewportController
 {
-    include "../../core/Version.as"
+
 
     //--------------------------------------------------------------------------
     //

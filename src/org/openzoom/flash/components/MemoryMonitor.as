@@ -59,7 +59,7 @@ use namespace openzoom_internal;
  */
 public final class MemoryMonitor extends Sprite
 {
-    include "../core/Version.as"
+
 
     //--------------------------------------------------------------------------
     //

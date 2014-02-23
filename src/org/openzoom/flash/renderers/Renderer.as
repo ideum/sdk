@@ -74,7 +74,7 @@ use namespace openzoom_internal;
 public class Renderer extends Sprite
                       implements IDisposable, IRenderer
 {
-    include "../core/Version.as"
+
 
     //--------------------------------------------------------------------------
     //

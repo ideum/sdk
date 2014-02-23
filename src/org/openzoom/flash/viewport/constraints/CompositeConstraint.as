@@ -54,7 +54,7 @@ use namespace openzoom_internal;
  */
 public final class CompositeConstraint implements IDisposable, IViewportConstraint
 {
-    include "../../core/Version.as"
+
 
     //--------------------------------------------------------------------------
     //

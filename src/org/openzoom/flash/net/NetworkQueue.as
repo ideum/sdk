@@ -58,7 +58,7 @@ use namespace openzoom_internal;
 public final class NetworkQueue extends EventDispatcher
                                 implements INetworkQueue
 {
-    include "../core/Version.as"
+
 
     //--------------------------------------------------------------------------
     //
